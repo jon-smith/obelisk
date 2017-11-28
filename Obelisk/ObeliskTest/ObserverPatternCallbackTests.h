@@ -54,7 +54,7 @@ namespace ObeliskTest
 		std::atomic<size_t> callCount;
 	};
 
-	template <size_t eventDelay, bool allowDuplicates, typename...Args>
+	template <bool useSharedHandler, size_t eventDelay, bool allowDuplicates, typename...Args>
 	class SingleAsyncEventObject : public obelisk::SubjectWithEvents
 	{
 	public:
@@ -98,7 +98,7 @@ namespace ObeliskTest
 			return invokeCallCount.load();
 		}
 
-		obelisk::AsyncEvent<Args...> testEvent;
+		obelisk::AsyncEventImpl<useSharedHandler, Args...> testEvent;
 
 	private:
 

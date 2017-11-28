@@ -46,11 +46,52 @@ namespace ObeliskTest
 			}
 		}
 
-	public:   
+	public:
 
 		TEST_METHOD(ThrottledEvent_EventFirst)
 		{
-			SingleAsyncEventObject<0, false> singleEvents;
+			ThrottledEvent_EventFirst_TestImpl<true>();
+			ThrottledEvent_EventFirst_TestImpl<false>();			
+		}
+
+		TEST_METHOD(ThrottledEvent_ObserverFirst)
+		{
+			ThrottledEvent_ObserverFirst_TestImpl<true>();
+			ThrottledEvent_ObserverFirst_TestImpl<false>();			
+		}
+
+		TEST_METHOD(ProcessAllEvents_EventFirst)
+		{
+			ProcessAllEvents_EventFirst_TestImpl<true>();
+			ProcessAllEvents_EventFirst_TestImpl<false>();
+		}
+
+		TEST_METHOD(ProcessAllEvents_ObserverFirst)
+		{
+			ProcessAllEvents_ObserverFirst_TestImpl<true>();
+			ProcessAllEvents_ObserverFirst_TestImpl<false>();
+		}
+
+		TEST_METHOD(MultipleArguments)
+		{
+			MultipleArguments_TestImpl<true>();
+			MultipleArguments_TestImpl<false>();			
+		}
+
+		// Static test - testing if we can register to non-const and const member functions
+		// If compiles, then passes
+		TEST_METHOD(MemFunc_Bind)
+		{
+			MemFunc_Bind_TestImpl<false>();
+			MemFunc_Bind_TestImpl<true>();			
+		}
+
+	private:
+
+		template <bool useSharedEventHandler>
+		void ThrottledEvent_EventFirst_TestImpl()
+		{
+			SingleAsyncEventObject<useSharedEventHandler, 0, false> singleEvents;
 			ObserverWithSingleCallback<> obs = { []() {} };
 			obs.registerToEvent(singleEvents.testEvent, [&]()
 			{
@@ -77,11 +118,12 @@ namespace ObeliskTest
 			Assert::IsTrue(nSent > nReceived, L"Received events should be less than sent events");
 		}
 
-		TEST_METHOD(ThrottledEvent_ObserverFirst)
+		template <bool useSharedEventHandler>
+		void ThrottledEvent_ObserverFirst_TestImpl()
 		{
 			// Check that the event can be destroyed before the observer
 			auto obs = createBasicObserver<ObsCallPrint::NO_PRINT>();
-			SingleAsyncEventObject<5, false> singleEvents;
+			SingleAsyncEventObject<useSharedEventHandler, 5, false> singleEvents;
 			obs.registerToEvent(singleEvents.testEvent, [&]()
 			{
 				obs.callFunc();
@@ -96,9 +138,10 @@ namespace ObeliskTest
 			Logger::WriteMessage("Cleaning up...");
 		}
 
-		TEST_METHOD(ProcessAllEvents_EventFirst)
+		template <bool useSharedEventHandler>
+		void ProcessAllEvents_EventFirst_TestImpl()
 		{
-			SingleAsyncEventObject<0, true> singleEvents;
+			SingleAsyncEventObject<useSharedEventHandler, 0, true> singleEvents;
 			auto obs = createBasicObserver<ObsCallPrint::NO_PRINT>();
 			obs.registerToEvent(singleEvents.testEvent, [&]()
 			{
@@ -120,10 +163,11 @@ namespace ObeliskTest
 			Assert::IsTrue(singleEvents.getInvokeCount() == obs.getCallCount(), L"Received events should be equal to sent events");
 		}
 
-		TEST_METHOD(ProcessAllEvents_ObserverFirst)
+		template <bool useSharedEventHandler>
+		void ProcessAllEvents_ObserverFirst_TestImpl()
 		{
 			auto obs = createBasicObserver<ObsCallPrint::NO_PRINT>();
-			SingleAsyncEventObject<0, true> singleEvents;
+			SingleAsyncEventObject<useSharedEventHandler, 0, true> singleEvents;
 			obs.registerToEvent(singleEvents.testEvent, [&]()
 			{
 				obs.callFunc();
@@ -144,10 +188,11 @@ namespace ObeliskTest
 			Assert::IsTrue(singleEvents.getInvokeCount() == obs.getCallCount(), L"Received events should be equal to sent events");
 		}
 
-		TEST_METHOD(MultipleArguments)
+		template <bool useSharedEventHandler>
+		void MultipleArguments_TestImpl()
 		{
 			// Check that multiple arguments compile (and will print something)
-			SingleAsyncEventObject<0, true, int, std::wstring> singleEvents(5, L"string");
+			SingleAsyncEventObject<useSharedEventHandler, 0, true, int, std::wstring> singleEvents(5, L"string");
 			auto obs = createBasicObserver<ObsCallPrint::PRINT, int, std::wstring>();
 			obs.registerToEvent(singleEvents.testEvent, [&](int i, std::wstring s)
 			{
@@ -160,25 +205,24 @@ namespace ObeliskTest
 			Logger::WriteMessage("Cleaning up...");
 		}
 
-    // Static test - testing if we can register to non-const and const member functions
-    // If compiles, then passes
-    TEST_METHOD(MemFunc_Bind)
-    {
-      class Internal : public obelisk::EventObserver
-      {
-      public:
-        void nonMod() const {};
-        void mod() {};
-        Internal() = delete;
-        Internal(SingleAsyncEventObject<0, false> &subject)
-        {
-          registerToEvent(subject.testEvent, &Internal::nonMod);
-          registerToEvent(subject.testEvent, &Internal::mod);
-        }
-      };
+		template <bool useSharedEventHandler>
+		void MemFunc_Bind_TestImpl()
+		{
+			class Internal : public obelisk::EventObserver
+			{
+			public:
+				void nonMod() const {};
+				void mod() {};
+				Internal() = delete;
+				Internal(SingleAsyncEventObject<useSharedEventHandler, 0, false> &subject)
+				{
+					registerToEvent(subject.testEvent, &Internal::nonMod);
+					registerToEvent(subject.testEvent, &Internal::mod);
+				}
+			};
 
-      SingleAsyncEventObject<0, false> singleEvents;
-      Internal obj(singleEvents);
-    }
+			SingleAsyncEventObject<useSharedEventHandler, 0, false> singleEvents;
+			Internal obj(singleEvents);
+		}
 	};
 }
