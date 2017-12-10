@@ -40,7 +40,7 @@ namespace ObeliskTest
 		template <bool UseThreadSafeOptional, typename T>
 		static void copyAndAssignTest()
 		{
-			using OptionalT = std::conditional_t<UseThreadSafeOptional, Optional_ThreadSafe<T>, Optional_ThreadSafe<T>>;
+			using OptionalT = std::conditional_t<UseThreadSafeOptional, Optional_ThreadSafe<T>, Optional<T>>;
 
 			OptionalT const original(7);
 
@@ -72,7 +72,7 @@ namespace ObeliskTest
 			auto const copyOfValue = V(std::ref(value));
 			auto const copyOfAlternative = V(std::ref(alternativeValue));
 
-			using OptionalT = std::conditional_t<UseThreadSafeOptional, Optional_ThreadSafe<V>, Optional_ThreadSafe<V>>;
+			using OptionalT = std::conditional_t<UseThreadSafeOptional, Optional_ThreadSafe<V>, Optional<V>>;
 
 			Assert::AreNotSame(copyOfValue, copyOfAlternative, L"Supplied values should be the same");
 
@@ -109,7 +109,7 @@ namespace ObeliskTest
 
 			Assert::AreNotSame(copyOfValue, copyOfAlternative, L"Supplied values should be the same");
 
-			using OptionalT = std::conditional_t<UseThreadSafeOptional, Optional_ThreadSafe<V>, Optional_ThreadSafe<V>>;
+			using OptionalT = std::conditional_t<UseThreadSafeOptional, Optional_ThreadSafe<V>, Optional<V>>;
 
 			// Value initialized
 			auto testOptional = OptionalT(value);
