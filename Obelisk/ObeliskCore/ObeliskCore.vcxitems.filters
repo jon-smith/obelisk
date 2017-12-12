@@ -141,11 +141,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FormatString.hpp">
       <Filter>HeaderOnly\General</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Valjean\Source\Repos\Obelisk\Obelisk\ObeliskCore\ParallelSort.hpp">
-      <Filter>HeaderOnly\Concurrency</Filter>
-    </ClInclude>
     <ClInclude Include="C:\Users\Valjean\Source\Repos\Obelisk\Obelisk\ObeliskCore\ArrayParamCalc.hpp">
       <Filter>HeaderOnly\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Valjean\Source\Repos\Obelisk\Obelisk\ObeliskCore\ParallelSort.hpp">
+      <Filter>HeaderOnly\Concurrency</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

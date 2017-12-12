@@ -33,7 +33,7 @@ namespace obelisk
 				assert(false);
 				return "[wstrToStr conversion failed]";
 			}
-		}	
+		}
 	}
 
 	std::wstring strToWStr(const std::string& str)
@@ -43,8 +43,8 @@ namespace obelisk
 			std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> utf8Converter;
 			return utf8Converter.from_bytes(str);
 		}
-		catch(...)
-		{			
+		catch (...)
+		{
 			try {
 				std::wstring_convert<std::codecvt_utf16<wchar_t>, wchar_t> utf16Converter;
 				return utf16Converter.from_bytes(str);
@@ -55,7 +55,7 @@ namespace obelisk
 			}
 		}
 	}
-	
+
 	std::tm localTimeNow()
 	{
 		std::time_t t = std::time(nullptr);
@@ -104,60 +104,60 @@ namespace obelisk
 		return ss.str();
 	}
 
-  std::string formatTime(std::chrono::duration<double> time, bool includeMillisecond)
-  {
-    auto const days = static_cast<uint32_t>(time.count() / 60 / 60 / 24);
-    auto const remainderAfterDays = time - std::chrono::duration<double>(days * 60 * 60 * 24);
-    auto const hours = static_cast<uint32_t>(remainderAfterDays.count() / 60 / 60);
-    auto const remainderAfterHours = remainderAfterDays - std::chrono::duration<double>(hours * 60 * 60);
-    auto const minutes = static_cast<uint32_t>(remainderAfterHours.count() / 60);
-    auto const remainderAfterMinutes = remainderAfterHours - std::chrono::duration<double>(minutes * 60);
-    auto const seconds = static_cast<uint32_t>(remainderAfterMinutes.count());
-    auto const remainderAfterSeconds = remainderAfterMinutes - std::chrono::duration<double>(seconds);
-    auto const milliseconds = static_cast<uint32_t>(round(remainderAfterSeconds.count() * 1000));
+	std::string formatTime(std::chrono::duration<double> time, bool includeMillisecond)
+	{
+		auto const days = static_cast<uint32_t>(time.count() / 60 / 60 / 24);
+		auto const remainderAfterDays = time - std::chrono::duration<double>(days * 60 * 60 * 24);
+		auto const hours = static_cast<uint32_t>(remainderAfterDays.count() / 60 / 60);
+		auto const remainderAfterHours = remainderAfterDays - std::chrono::duration<double>(hours * 60 * 60);
+		auto const minutes = static_cast<uint32_t>(remainderAfterHours.count() / 60);
+		auto const remainderAfterMinutes = remainderAfterHours - std::chrono::duration<double>(minutes * 60);
+		auto const seconds = static_cast<uint32_t>(remainderAfterMinutes.count());
+		auto const remainderAfterSeconds = remainderAfterMinutes - std::chrono::duration<double>(seconds);
+		auto const milliseconds = static_cast<uint32_t>(round(remainderAfterSeconds.count() * 1000));
 
-    if (days != 0)
-    {
-      if (includeMillisecond)
-        return formatString("%dd %dh %dm %ds %dms", days, hours, minutes, seconds, milliseconds);
+		if (days != 0)
+		{
+			if (includeMillisecond)
+				return formatString("%dd %dh %dm %ds %dms", days, hours, minutes, seconds, milliseconds);
 
-      return formatString("%dd %dh %dm %ds", days, hours, minutes, seconds);
-    }
+			return formatString("%dd %dh %dm %ds", days, hours, minutes, seconds);
+		}
 
-    if (hours != 0)
-    {
-      if (includeMillisecond)
-        return formatString("%dh %dm %ds %dms", hours, minutes, seconds, milliseconds);
+		if (hours != 0)
+		{
+			if (includeMillisecond)
+				return formatString("%dh %dm %ds %dms", hours, minutes, seconds, milliseconds);
 
-      return formatString("%dh %dm %ds", hours, minutes, seconds);
-    }
+			return formatString("%dh %dm %ds", hours, minutes, seconds);
+		}
 
-    if (minutes != 0)
-    {
-      if (includeMillisecond)
-         return formatString("%dm %ds %dms", minutes, seconds, milliseconds);
+		if (minutes != 0)
+		{
+			if (includeMillisecond)
+				return formatString("%dm %ds %dms", minutes, seconds, milliseconds);
 
-      return formatString("%dm %ds", minutes, seconds);
-    }
+			return formatString("%dm %ds", minutes, seconds);
+		}
 
-    if (seconds != 0)
-    {
-      if (includeMillisecond)
-        return formatString("%ds %dms", seconds, milliseconds);
+		if (seconds != 0)
+		{
+			if (includeMillisecond)
+				return formatString("%ds %dms", seconds, milliseconds);
 
-      return formatString("%ds", seconds);
-    }
+			return formatString("%ds", seconds);
+		}
 
-    if (includeMillisecond)
-      return formatString("%dms", milliseconds);
-    
-    return "0s";
-  }
+		if (includeMillisecond)
+			return formatString("%dms", milliseconds);
+
+		return "0s";
+	}
 
 	std::vector<std::string> stringSplit(const std::string& str, char delim)
 	{
 		std::vector<std::string> r;
-		
+
 		std::stringstream ss;
 		ss.str(str);
 		std::string item;
@@ -165,30 +165,32 @@ namespace obelisk
 		{
 			r.push_back(item);
 		}
-		
+
 		return r;
 	}
 
-	std::string stringJoin(const std::vector<std::string>& src, std::string separator)
+	std::string stringJoin(const std::vector<std::string>& strings, std::string separator)
 	{
-		std::string r;
-		for (int i = 0; i < src.size(); i++) {
-			r += src[i];
-			if (i != src.size() - 1)
-				r += separator;
+		std::string joined;
+		for (size_t i = 0; i < strings.size(); ++i)
+		{
+			joined += strings[i];
+			if (i != strings.size() - 1)
+				joined += separator;
 		}
-		return r;
+		return joined;
 	}
 
-	std::wstring stringJoin(const std::vector<std::wstring>& src, std::wstring separator)
+	std::wstring stringJoin(const std::vector<std::wstring>& strings, std::wstring separator)
 	{
-		std::wstring r;
-		for (int i = 0; i < src.size(); i++) {
-			r += src[i];
-			if (i != src.size() - 1)
-				r += separator;
+		std::wstring joined;
+		for (size_t i = 0; i < strings.size(); ++i)
+		{
+			joined += strings[i];
+			if (i != strings.size() - 1)
+				joined += separator;
 		}
-		return r;
+		return joined;
 	}
 
 	// Functions below from http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring?rq=1
@@ -206,7 +208,7 @@ namespace obelisk
 		str.erase(std::find_if(str.rbegin(), str.rend(), [](int ch) {
 			return !std::isspace(ch);
 		}).base(), str.end());
-		
+
 		return str;
 	}
 
