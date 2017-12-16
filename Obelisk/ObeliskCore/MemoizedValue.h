@@ -6,9 +6,7 @@
 
 namespace obelisk
 {
-	///
-	/// \brief Value is calculated on first call to get() and then stored for subsequent calls
-	///
+	/// Value is calculated on first call to get() and then stored for subsequent calls
 	template <typename T>
 	class MemoizedValue
 	{

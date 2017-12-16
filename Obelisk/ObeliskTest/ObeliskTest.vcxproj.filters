@@ -52,5 +52,8 @@
     <ClCompile Include="ContainerMakerTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="StackVectorTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

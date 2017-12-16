@@ -41,6 +41,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Optional.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DataSourceWithPolling.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ParallelSort.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StackVector.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StdLockUtilsT.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MutexedObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ObeliskMeta.h" />
