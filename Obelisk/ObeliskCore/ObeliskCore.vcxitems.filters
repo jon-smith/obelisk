@@ -141,14 +141,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FormatString.hpp">
       <Filter>HeaderOnly\General</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\ParallelSort.hpp">
-      <Filter>HeaderOnly\Concurrency</Filter>
+    <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\StackVector.hpp">
+      <Filter>HeaderOnly\General</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\ArrayParamCalc.hpp">
       <Filter>HeaderOnly\Math</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\StackVector.hpp">
-      <Filter>HeaderOnly\General</Filter>
+    <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\ParallelSort.hpp">
+      <Filter>HeaderOnly\Concurrency</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
