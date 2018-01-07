@@ -67,6 +67,13 @@ namespace obelisk
 
 		~StackVector() = default;
 
+		StackVector &operator=(const StackVector &other)
+		{
+			std::copy(std::begin(other), std::end(other), begin());
+			internalSize = other.internalSize;
+			return *this;
+		}
+
 		void clear()
 		{
 			internalSize = 0;

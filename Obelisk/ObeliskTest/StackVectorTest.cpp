@@ -49,6 +49,16 @@ namespace ObeliskTest
 				Assert::AreEqual(twoDoubles[i], anotherTwoDoubles[i], L"Contents should be identical");
 		}
 
+		TEST_METHOD(Assign)
+		{
+			StackVector<double, 2> twoDoubles{ 1.0,1.0 };
+			StackVector<double, 2> anotherTwoDoubles;
+			anotherTwoDoubles = twoDoubles;
+
+			for (size_t i = 0; i<twoDoubles.size(); ++i)
+				Assert::AreEqual(twoDoubles[i], anotherTwoDoubles[i], L"Contents should be identical");
+		}
+
 		TEST_METHOD(Fill)
 		{
 			StackVector<double, 5> doubles(5);
