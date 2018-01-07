@@ -150,6 +150,9 @@
     <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\ParallelSort.hpp">
       <Filter>HeaderOnly\Concurrency</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Valjean\Source\TogaRepos\TogaTogaToga\Obelisk\Obelisk\ObeliskCore\LazyEval.hpp">
+      <Filter>HeaderOnly\General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)PlatformSpecific.cpp">

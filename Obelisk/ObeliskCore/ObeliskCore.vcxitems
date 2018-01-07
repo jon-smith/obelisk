@@ -35,6 +35,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GeneralHelpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapArray.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ImageFilters.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LazyEval.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LockFreeConcurrentQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LockUtilsT.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MemoizedValue.h" />
