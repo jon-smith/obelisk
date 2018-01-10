@@ -21,6 +21,7 @@ namespace ObeliskTest
 		TEST_METHOD(ListInitConstructFull)
 		{
 			StackVector<double, 5> fiveDoubles{ 1.0,1.0,1.0,1.0,1.0 };
+			Assert::AreEqual(size_t(5), fiveDoubles.size(), L"Size should be 5");
 			size_t count = 0;
 			for (auto const &v : fiveDoubles)
 			{
@@ -33,7 +34,8 @@ namespace ObeliskTest
 		TEST_METHOD(ListInitConstructHalf)
 		{
 			StackVector<double, 4> fourDoubles{ 1.0,1.0 };
-			for (size_t i = 0; i<fourDoubles.size(); ++i)
+			Assert::AreEqual(size_t(2), fourDoubles.size(), L"Size should be 2");
+			for (size_t i = 0; i<4; ++i)
 				if (i < 2)
 					Assert::AreEqual(fourDoubles[i], 1.0, L"First two values should be 1.0");
 				else
@@ -45,6 +47,8 @@ namespace ObeliskTest
 			StackVector<double, 2> twoDoubles{ 1.0,1.0 };
 			auto const anotherTwoDoubles = twoDoubles;
 
+			Assert::AreEqual(twoDoubles.size(), anotherTwoDoubles.size(), L"Sizes should be equal");
+
 			for (size_t i = 0; i<twoDoubles.size(); ++i)
 				Assert::AreEqual(twoDoubles[i], anotherTwoDoubles[i], L"Contents should be identical");
 		}
@@ -54,6 +58,8 @@ namespace ObeliskTest
 			StackVector<double, 2> twoDoubles{ 1.0,1.0 };
 			StackVector<double, 2> anotherTwoDoubles;
 			anotherTwoDoubles = twoDoubles;
+
+			Assert::AreEqual(twoDoubles.size(), anotherTwoDoubles.size(), L"Sizes should be equal");
 
 			for (size_t i = 0; i<twoDoubles.size(); ++i)
 				Assert::AreEqual(twoDoubles[i], anotherTwoDoubles[i], L"Contents should be identical");

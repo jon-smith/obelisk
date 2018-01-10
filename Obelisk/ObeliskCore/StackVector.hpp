@@ -90,12 +90,13 @@ namespace obelisk
 		{
 			if (size > MaxSize)
 				throwResizeOutOfRange();
-			std::fill_n(begin(), size, value);
+			assign_unchecked(value, size);
 		}
 
 		void assign_unchecked(const T& value, size_t size)
 		{
 			std::fill_n(begin(), size, value);
+			internalSize = size;
 		}
 
 		void push_back(const T& val)
