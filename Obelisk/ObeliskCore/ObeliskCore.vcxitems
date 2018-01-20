@@ -39,6 +39,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LockFreeConcurrentQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LockUtilsT.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MemoizedValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MultiVector.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Optional.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DataSourceWithPolling.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ParallelSort.hpp" />

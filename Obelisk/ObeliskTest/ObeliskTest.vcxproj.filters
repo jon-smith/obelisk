@@ -58,5 +58,8 @@
     <ClCompile Include="LazyEvalTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="MultiVectorTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

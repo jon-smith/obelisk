@@ -167,6 +167,7 @@
     </ClCompile>
     <ClCompile Include="ImageFilterTests.cpp" />
     <ClCompile Include="LazyEvalTest.cpp" />
+    <ClCompile Include="MultiVectorTests.cpp" />
     <ClCompile Include="StackVectorTest.cpp" />
     <ClCompile Include="StringFuncTests.cpp" />
     <ClInclude Include="ObserverPatternCallbackTests.h" />
