@@ -33,11 +33,19 @@ namespace ObeliskTest
 			const auto threeVecsCopied = MakeMultiVector(dV, iV, strV);
 			const auto threeVecsCopied2 = MultiVector<double, int, std::string>(dV, iV, strV);
 
-			// Test contents identical
+			// Sizes
 			Assert::AreEqual(size_t(5), threeVecsCopied.size(), L"Make copy wrong size");
 			Assert::AreEqual(size_t(5), threeVecsCopied2.size(), L"Construct copy wrong size");
+			// Empty
 			Assert::IsFalse(threeVecsCopied.isEmpty(), L"Make copy not empty");
 			Assert::IsFalse(threeVecsCopied2.isEmpty(), L"Make copy not empty");
+			// Contents
+			Assert::IsTrue(dV == threeVecsCopied.get<0>(), L"");
+			Assert::IsTrue(iV == threeVecsCopied.get<1>(), L"");
+			Assert::IsTrue(strV == threeVecsCopied.get<2>(), L"");
+			Assert::IsTrue(dV == threeVecsCopied2.get<0>(), L"");
+			Assert::IsTrue(iV == threeVecsCopied2.get<1>(), L"");
+			Assert::IsTrue(strV == threeVecsCopied2.get<2>(), L"");
 		}
 
 		TEST_METHOD(MoveConstruct)
@@ -46,10 +54,17 @@ namespace ObeliskTest
 			const auto twoVecs = MakeMultiVector(std::vector<int>(2), std::vector<std::unique_ptr<int>>(2));
 			const auto twoVecs2 = MultiVector<int, std::unique_ptr<int>>(std::vector<int>(2), std::vector<std::unique_ptr<int>>(2));
 
+			// Sizes
 			Assert::AreEqual(size_t(2), twoVecs.size());
 			Assert::AreEqual(size_t(2), twoVecs2.size());
+			// Empty
 			Assert::IsFalse(twoVecs.isEmpty());
 			Assert::IsFalse(twoVecs2.isEmpty());
+			// Contents
+			Assert::IsTrue(std::vector<int>(2) == twoVecs.get<0>(), L"");
+			Assert::IsTrue(std::vector<std::unique_ptr<int>>(2) == twoVecs.get<1>(), L"");
+			Assert::IsTrue(std::vector<int>(2) == twoVecs2.get<0>(), L"");
+			Assert::IsTrue(std::vector<std::unique_ptr<int>>(2) == twoVecs2.get<1>(), L"");
 		}
 
 		TEST_METHOD(RefConstruct)
@@ -66,6 +81,13 @@ namespace ObeliskTest
 			Assert::AreEqual(size_t(5), threeVecRefs2.size());
 			Assert::IsFalse(threeVecRefs.isEmpty());
 			Assert::IsFalse(threeVecRefs2.isEmpty());
+			// Contents
+			Assert::IsTrue(dV == threeVecRefs.get<0>(), L"");
+			Assert::IsTrue(iV == threeVecRefs.get<1>(), L"");
+			Assert::IsTrue(strV == threeVecRefs.get<2>(), L"");
+			Assert::IsTrue(dV == threeVecRefs2.get<0>(), L"");
+			Assert::IsTrue(iV == threeVecRefs2.get<1>(), L"");
+			Assert::IsTrue(strV == threeVecRefs2.get<2>(), L"");
 		}
 
 		TEST_METHOD(CRefConstruct)
@@ -86,6 +108,13 @@ namespace ObeliskTest
 			Assert::AreEqual(size_t(5), threeVecRefs2.size());
 			Assert::IsFalse(threeVecRefs.isEmpty());
 			Assert::IsFalse(threeVecRefs2.isEmpty());
+			// Contents
+			Assert::IsTrue(dV == threeVecRefs.get<0>(), L"");
+			Assert::IsTrue(iV == threeVecRefs.get<1>(), L"");
+			Assert::IsTrue(strV == threeVecRefs.get<2>(), L"");
+			Assert::IsTrue(dV == threeVecRefs2.get<0>(), L"");
+			Assert::IsTrue(iV == threeVecRefs2.get<1>(), L"");
+			Assert::IsTrue(strV == threeVecRefs2.get<2>(), L"");
 		}
 
 		TEST_METHOD(SizeConstruct)

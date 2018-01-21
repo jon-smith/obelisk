@@ -79,6 +79,12 @@ namespace obelisk
 			return std::get<0>(data).empty();
 		}
 
+		template <size_t index>
+		auto get() const -> decltype(std::get<index>(data))
+		{
+			return std::get<index>(data);
+		}
+
 	private:
 		std::tuple<std::vector<Types>...> data;
 	};
@@ -116,6 +122,12 @@ namespace obelisk
 			return std::get<0>(dataRefs).empty();
 		}
 
+		template <size_t index>
+		auto get() const -> decltype(std::get<index>(dataRefs))
+		{
+			return std::get<index>(dataRefs);
+		}
+
 	private:
 		std::tuple<std::vector<Types>&...> dataRefs;
 	};
@@ -145,6 +157,12 @@ namespace obelisk
 		bool isEmpty() const
 		{
 			return std::get<0>(dataRefs).empty();
+		}
+
+		template <size_t index>
+		auto get() const -> decltype(std::get<index>(dataRefs))
+		{
+			return std::get<index>(dataRefs);
 		}
 
 	private:
