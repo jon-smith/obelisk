@@ -3,8 +3,39 @@
 #include <vector>
 #include <tuple>
 
+#include "ObeliskMeta.h"
+
 namespace obelisk
 {
+	namespace impl
+	{
+		template <typename ...Types>
+		static void throwOnInconsistentSizes(std::tuple<Types&...> refs)
+		{
+			const auto size = std::get<0>(refs).size();
+			obelisk::forEach(refs, [size](auto &v) {
+				if (size != v.size())
+					throw std::invalid_argument("MultiVector construct: Inconsistent vector sizes");
+			});
+		}
+
+		template <typename ...VectorTypes>
+		static auto checkSizesAndTie(VectorTypes&&...args) -> decltype(std::tie(args...))
+		{
+			const auto refs = std::tie(args...);
+			throwOnInconsistentSizes(refs);
+			return refs;
+		}
+
+		template <typename ...VectorTypes>
+		static std::tuple<std::decay_t<VectorTypes>...> checkSizesAndMakeTuple(VectorTypes&&...args)
+		{
+			const auto refs = std::tie(args...);
+			throwOnInconsistentSizes(refs);
+			return std::make_tuple(std::forward<VectorTypes>(args)...);
+		}
+	}
+
 	template <typename ...Types>
 	class MultiVector
 	{
@@ -12,21 +43,30 @@ namespace obelisk
 
 		MultiVector() = default;
 
-		MultiVector(size_t size)
+		MultiVector(size_t size) :
+			data(std::vector<Types>(size)...)
 		{
-			// Todo - for each type, create vector
 		}
 
 		MultiVector(const std::vector<Types>&...args) :
-			data(std::make_tuple(args...))
+			data(impl::checkSizesAndMakeTuple(args...))
 		{
 
 		}
 
 		MultiVector(std::vector<Types>&&...args) :
-			data(std::make_tuple(std::forward<std::vector<Types>>(args(...))))
+			data(impl::checkSizesAndMakeTuple(std::forward<std::vector<Types>>(args)...))
 		{
+		}
 
+		MultiVector(MultiVector&& o) :
+			data(std::move(o.data))
+		{
+		}
+
+		MultiVector(const MultiVector& o) :
+			data(o.data)
+		{
 		}
 
 		size_t size() const
@@ -50,12 +90,18 @@ namespace obelisk
 	}
 
 	template <typename ...Types>
+	MultiVector<Types...> MakeMultiVector(std::vector<Types>&&...args)
+	{
+		return MultiVector<Types...>(std::forward<std::vector<Types>>(args)...);
+	}
+
+	template <typename ...Types>
 	class MultiVectorRef
 	{
 	public:
 
 		MultiVectorRef(std::vector<Types>&...args) :
-			dataRefs(std::tie(args...))
+			dataRefs(impl::checkSizesAndTie(args...))
 		{
 
 		}
@@ -86,7 +132,7 @@ namespace obelisk
 	public:
 
 		MultiVectorCRef(const std::vector<Types>&...args) :
-			dataRefs(std::tie(args...))
+			dataRefs(impl::checkSizesAndTie(args...))
 		{
 
 		}

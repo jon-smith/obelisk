@@ -5,6 +5,7 @@
 #include "MultiVector.hpp"
 
 #include <string>
+#include <memory>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace obelisk;
@@ -33,10 +34,22 @@ namespace ObeliskTest
 			const auto threeVecsCopied2 = MultiVector<double, int, std::string>(dV, iV, strV);
 
 			// Test contents identical
-			Assert::AreEqual(size_t(5), threeVecsCopied.size());
-			Assert::AreEqual(size_t(5), threeVecsCopied2.size());
-			Assert::IsFalse(threeVecsCopied.isEmpty());
-			Assert::IsFalse(threeVecsCopied2.isEmpty());
+			Assert::AreEqual(size_t(5), threeVecsCopied.size(), L"Make copy wrong size");
+			Assert::AreEqual(size_t(5), threeVecsCopied2.size(), L"Construct copy wrong size");
+			Assert::IsFalse(threeVecsCopied.isEmpty(), L"Make copy not empty");
+			Assert::IsFalse(threeVecsCopied2.isEmpty(), L"Make copy not empty");
+		}
+
+		TEST_METHOD(MoveConstruct)
+		{
+			// Create multivectors with a move-only type
+			const auto twoVecs = MakeMultiVector(std::vector<int>(2), std::vector<std::unique_ptr<int>>(2));
+			const auto twoVecs2 = MultiVector<int, std::unique_ptr<int>>(std::vector<int>(2), std::vector<std::unique_ptr<int>>(2));
+
+			Assert::AreEqual(size_t(2), twoVecs.size());
+			Assert::AreEqual(size_t(2), twoVecs2.size());
+			Assert::IsFalse(twoVecs.isEmpty());
+			Assert::IsFalse(twoVecs2.isEmpty());
 		}
 
 		TEST_METHOD(RefConstruct)
@@ -89,10 +102,12 @@ namespace ObeliskTest
 			std::vector<double> dV(5);
 			std::vector<int> dI(4);
 
-			Assert::ExpectException<std::exception>([&]() {MakeMultiVector(dV, dI); }, L"");
-			Assert::ExpectException<std::exception>([&]() {MakeMultiVectorRef(dV, dI); }, L"");
-			Assert::ExpectException<std::exception>([&]() {MultiVector<double, int>(dV, dI); }, L"");
-			Assert::ExpectException<std::exception>([&]() {MultiVectorRef<double, int>(dV, dI); }, L"");
+			Assert::ExpectException<std::invalid_argument>([&]() {MakeMultiVector(dV, dI); }, L"");
+			Assert::ExpectException<std::invalid_argument>([&]() {MakeMultiVectorRef(dV, dI); }, L"");
+			Assert::ExpectException<std::invalid_argument>([&]() {MakeMultiVectorCRef(dV, dI); }, L"");
+			Assert::ExpectException<std::invalid_argument>([&]() {MultiVector<double, int>(dV, dI); }, L"");
+			Assert::ExpectException<std::invalid_argument>([&]() {MultiVectorRef<double, int>(dV, dI); }, L"");
+			Assert::ExpectException<std::invalid_argument>([&]() {MultiVectorCRef<double, int>(dV, dI); }, L"");
 		}
 	};
 }

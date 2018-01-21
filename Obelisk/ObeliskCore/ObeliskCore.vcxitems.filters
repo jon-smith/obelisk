@@ -145,9 +145,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LazyEval.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ParallelSort.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StackVector.hpp" />
-    <ClInclude Include="C:\Users\Valjean\Source\Repos\Obelisk\Obelisk\ObeliskCore\MultiVector.hpp">
-      <Filter>HeaderOnly\DataManagement</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MultiVector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)PlatformSpecific.cpp">
