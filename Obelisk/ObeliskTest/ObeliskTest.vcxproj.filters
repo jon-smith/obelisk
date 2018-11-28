@@ -61,5 +61,8 @@
     <ClCompile Include="MultiVectorTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="OctreeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -156,6 +156,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StackVector.hpp">
       <Filter>HeaderOnly\General</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorT.h">
+      <Filter>HeaderOnly\General</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Octree.h">
+      <Filter>HeaderOnly\General</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Box.h">
+      <Filter>HeaderOnly\General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)PlatformSpecific.cpp">
