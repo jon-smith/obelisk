@@ -19,11 +19,6 @@ namespace obelisk
 	{
 		bool beep(unsigned int frequencyHz, std::chrono::milliseconds time)
 		{
-			if (time.count() < 0)
-			{
-				time.zero();
-			}
-
 			return Beep(static_cast<DWORD>(frequencyHz), static_cast<DWORD>(time.count())) == TRUE;
 		}
 

@@ -289,7 +289,7 @@ namespace obelisk
 			throw std::out_of_range("StackVector requested size out of range");
 		}
 
-		T internalData[MaxSize];
+		T internalData[MaxSize] = { 0 };
 		size_t internalSize = 0;
 	};
 }

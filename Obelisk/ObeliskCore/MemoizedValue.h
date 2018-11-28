@@ -17,7 +17,6 @@ namespace obelisk
 		template <typename CreateFunc>
 		explicit MemoizedValue(CreateFunc &&fn) : fn(fn)
 		{
-			static_assert(std::is_same<std::result_of_t<CreateFunc(void)>, T>::value, "Supplied function must return T");
 		}
 
 		T get() const
