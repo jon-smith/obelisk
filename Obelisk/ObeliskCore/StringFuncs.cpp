@@ -13,6 +13,9 @@
 
 #include "FormatString.hpp"
 
+// Disable warnings/errors about deprecated conversion
+#pragma warning(disable: 4996)
+
 namespace obelisk
 {
 	std::string wStrToStr(const std::wstring& wStr)
