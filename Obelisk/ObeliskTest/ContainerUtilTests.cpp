@@ -12,6 +12,19 @@ namespace ObeliskTest
   {
   public:
 
+	TEST_METHOD(ConvertAllTest)
+	{
+		std::vector<int> const values = { 1,2,3,4 };
+		const auto doubleValues = convertAll<double>(values,
+			[](const int i) {return static_cast<double>(i); });
+
+		Assert::AreEqual(values.size(), doubleValues.size(), L"Vector sizes changed");
+		for (size_t i = 0; i < values.size(); ++i)
+		{
+			Assert::AreEqual(static_cast<double>(values[i]), doubleValues[i]);
+		}
+	}
+
     TEST_METHOD(RestrictIncreasingRange)
     {
       std::vector<int> const increasing = { 1,2,3,4,5 };
