@@ -5,6 +5,120 @@
 namespace obelisk
 {
 	template <typename T>
+	struct Vector2
+	{
+		T x, y;
+
+		constexpr Vector2() : x(T{}), y(T{})
+		{
+		}
+
+		constexpr Vector2(T x, T y) : x(x), y(y)
+		{
+		}
+
+		bool operator==(const Vector2 &o) const
+		{
+			return x == o.x && y == o.y;
+		}
+
+		bool operator!=(const Vector2 &o) const
+		{
+			return !(*this == o);
+		}
+
+		bool operator<(const Vector2 &o) const
+		{
+			return std::tie(x, y) < std::tie(o.x, o.y);
+		}
+
+		Vector2 operator+(const Vector2 &o) const
+		{
+			return Vector2(x + o.x, y + o.y);
+		}
+
+		Vector2 operator+(float a) const
+		{
+			return Vector2(x + a, y + a);
+		}
+
+		Vector2 &operator+=(const Vector2 &o)
+		{
+			x += o.x;
+			y += o.y;
+			return *this;
+		}
+
+		Vector2 &operator-=(const Vector2 &o)
+		{
+			x -= o.x;
+			y -= o.y;
+			return *this;
+		}
+
+		Vector2 operator-(const Vector2 &o) const
+		{
+			return Vector2(x - o.x, y - o.y);
+		}
+
+		Vector2 operator-(float a) const
+		{
+			return Vector2(x - a, y - a);
+		}
+
+		Vector2 operator-() const
+		{
+			return Vector2(-x, -y);
+		}
+
+		Vector2 operator*(const Vector2 &o) const
+		{
+			return Vector2(x * o.x, y * o.y);
+		}
+
+		Vector2 operator*(T a) const
+		{
+			return Vector2(x * a, y * a);
+		}
+
+		Vector2 &operator*=(const Vector2 &o)
+		{
+			x *= o.x;
+			y *= o.y;
+			return *this;
+		}
+
+		Vector2 &operator*=(T a)
+		{
+			x *= a;
+			y *= a;
+			return *this;
+		}
+
+		Vector2 &operator/=(T a)
+		{
+			x /= a;
+			y /= a;
+			return *this;
+		}
+
+		Vector2 operator/(T a) const
+		{
+			return Vector2(x / a, y / a);
+		}
+
+		T lengthSquared() const
+		{
+			return x * x + y * y;
+		}
+
+		T length() const
+		{
+			return sqrt(lengthSquared());
+		}
+	};
+
+	template <typename T>
 	struct Vector3
 	{
 		T x, y, z;
