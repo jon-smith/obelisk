@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+#use find_dependency(...) here
+
+if(NOT TARGET obelisk::obelisk)
+    include(${CMAKE_CURRENT_LIST_DIR}/obelisk-targets.cmake)
+endif()

@@ -1,0 +1,6 @@
+BreakBeforeBraces: Allman
+BasedOnStyle: LLVM
+UseTab: Always
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 160
