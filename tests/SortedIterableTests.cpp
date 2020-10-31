@@ -9,7 +9,7 @@ TEST_CASE("TestSortInts")
 	const auto sourceInts = std::vector<int>{4,5,1,3,2};
 	const auto sortFunc = std::function<bool(const int &, const int &)>([]( int a,  int b){return a<b;});
 	std::vector<int> resultOrder;
-	for (const auto &i : makeSorted(sourceInts, sortFunc))
+	for (const auto &i : iterateSorted(sourceInts, sortFunc))
 	{
 		resultOrder.push_back(i);
 	}
@@ -43,7 +43,7 @@ TEST_CASE("TestSortStructs")
 {
 	const auto xys = makeTestVec({3,5,2});
 	std::vector<double> sortedXs;
-	for (const auto &xy : makeSorted(xys, [](const TestXY &a, const TestXY &b){return a.x < b.x;}))
+	for (const auto &xy : iterateSorted(xys, [](const TestXY &a, const TestXY &b){return a.x < b.x;}))
 	{
 		sortedXs.push_back(xy.x);
 	}
@@ -55,7 +55,7 @@ TEST_CASE("TestSortStructsOn")
 {
 	const auto xys = makeTestVec({3,5,2});
 	std::vector<double> sortedXs;
-	for (const auto &xy : makeSortedOn(xys, [](const TestXY &a){return a.x;}))
+	for (const auto &xy : iterateSortedOn(xys, [](const TestXY &a){return a.x;}))
 	{
 		sortedXs.push_back(xy.x);
 	}
@@ -67,7 +67,7 @@ TEST_CASE("TestSortMutableStructs")
 {
 	auto xys = makeTestVec({3,5,2});
 	std::vector<double> sortedXs;
-	for (auto &xy : makeSorted(xys, [](const TestXY &a, const TestXY &b){return a.x < b.x;}))
+	for (auto &xy : iterateSorted(xys, [](const TestXY &a, const TestXY &b){return a.x < b.x;}))
 	{
 		sortedXs.push_back(xy.x);
 		// Set y=x
@@ -89,7 +89,7 @@ TEST_CASE("TestSortMutableStructsOn")
 {
 	auto xys = makeTestVec({3,5,2});
 	std::vector<double> sortedXs;
-	for (auto &xy : makeSortedOn(xys, [](const TestXY &a){return a.x;}))
+	for (auto &xy : iterateSortedOn(xys, [](const TestXY &a){return a.x;}))
 	{
 		sortedXs.push_back(xy.x);
 		// Set y=x
