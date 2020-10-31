@@ -19,6 +19,7 @@ add_executable(obelisk_tests
 	${CMAKE_CURRENT_SOURCE_DIR}/ObserverPatternCallbackTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/BackgroundContainerProducerTests.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/BackgroundThreadDeleterTests.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SortedIterableTests.cpp
 )
 
 include(${CMAKE_SOURCE_DIR}/cmake/obelisk-config-internal.cmake)
