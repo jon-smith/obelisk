@@ -12,7 +12,7 @@ template <typename T>
 struct SortedIterator
 {
   private:
-	using UnderlyingIt = IteratorType<std::vector<T*>>;
+	using UnderlyingIt = IteratorType<std::vector<T *>>;
 	UnderlyingIt it = nullptr;
 	struct Holder
 	{
@@ -103,7 +103,6 @@ struct SortedIterable
 template <typename ContainerT, typename CompFunc, typename V = ElementType<ContainerT>>
 SortedIterable<const V> makeSorted(const ContainerT &c, CompFunc &&lessThan)
 {
-	//static_assert(impl::CompFunc<V>
 	return SortedIterable<const V>(c, lessThan);
 }
 
@@ -114,13 +113,13 @@ SortedIterable<V> makeSorted(ContainerT &c, CompFunc &&lessThan)
 }
 
 template <typename ContainerT, typename GetValFunc, typename V = ElementType<ContainerT>>
-SortedIterable<const V> makeSortedOn(const ContainerT &c, GetValFunc&& sortOn)
+SortedIterable<const V> makeSortedOn(const ContainerT &c, GetValFunc &&sortOn)
 {
 	return SortedIterable<const V>(c, impl::getValToLessThan<V>(sortOn));
 }
 
 template <typename ContainerT, typename GetValFunc, typename V = ElementType<ContainerT>>
-SortedIterable<V> makeSortedOn(ContainerT &c, GetValFunc&& sortOn)
+SortedIterable<V> makeSortedOn(ContainerT &c, GetValFunc &&sortOn)
 {
 	return SortedIterable<V>(c, impl::getValToLessThan<V>(sortOn));
 }
